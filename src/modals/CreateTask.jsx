@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const CreateTask = ({ modal, toggle, save }) => {
   const [taskName, setTaskName] = useState("");
   const [deadline, setDeadline] = useState("Deadline: ");
 
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("In progress");
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
   };

@@ -5,6 +5,11 @@ const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
   const [taskName, setTaskName] = useState("");
   const [deadline, setDeadline] = useState("Deadline: ");
 
+  const [status, setStatus] = useState("In progress");
+  const handleStatusChange = (e) => {
+    setStatus(e.target.value);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -18,13 +23,15 @@ const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
   useEffect(() => {
     setTaskName(taskObj.Name);
     setDeadline(taskObj.Deadline);
-  }, []);
+    setStatus(taskObj.Status);
+  }, [taskObj.Name, taskObj.Deadline, taskObj.Status]);
 
   const handleUpdate = (e) => {
     e.preventDefault();
     let tempObj = {};
     tempObj["Name"] = taskName;
     tempObj["Deadline"] = deadline;
+    taskObj["Status"] = status;
     updateTask(tempObj);
   };
 
@@ -51,10 +58,16 @@ const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
           />
         </div>
         <div id="form-element">
-          <select class="form-select" size="1">
-            <option value="1">In progress</option>
-            <option value="2">Not started</option>
-            <option value="3">Done</option>
+          <select
+            class="form-select"
+            size="1"
+            value={status}
+            onChange={handleStatusChange}
+            name="status"
+          >
+            <option value="In progress">In progress</option>
+            <option value="Not started">Not started</option>
+            <option value="Done">Done</option>
           </select>
         </div>
       </ModalBody>
