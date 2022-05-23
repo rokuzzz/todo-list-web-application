@@ -2,7 +2,7 @@
   padding-top: 50px;
   height: 200px;
   width: 100%;
-  background-color: #dbdffd;
+  background-color: #92b4ec;
 }
 
 #form-element {
@@ -41,7 +41,7 @@
 .card-header {
   margin-top: 10px;
   margin-bottom: 10px;
-  max-width: 80px;
+  width: 150px;
   height: 30px;
   padding: 1px 1px !important;
   text-align: center;

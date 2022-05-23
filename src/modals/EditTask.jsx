@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-const CreateTask = ({ modal, toggle, save }) => {
+const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
   const [taskName, setTaskName] = useState("");
   const [deadline, setDeadline] = useState("Deadline: ");
 
@@ -15,17 +15,22 @@ const CreateTask = ({ modal, toggle, save }) => {
     }
   };
 
-  const handleSave = (e) => {
+  useEffect(() => {
+    setTaskName(taskObj.Name);
+    setDeadline(taskObj.Deadline);
+  }, []);
+
+  const handleUpdate = (e) => {
     e.preventDefault();
-    let taskObj = {};
-    taskObj["Name"] = taskName;
-    taskObj["Deadline"] = deadline;
-    save(taskObj);
+    let tempObj = {};
+    tempObj["Name"] = taskName;
+    tempObj["Deadline"] = deadline;
+    updateTask(tempObj);
   };
 
   return (
     <Modal isOpen={modal} toggle={toggle}>
-      <ModalHeader toggle={toggle}>Add new todo</ModalHeader>
+      <ModalHeader toggle={toggle}>Update todo</ModalHeader>
       <ModalBody>
         <div className="form-group">
           <input
@@ -57,12 +62,12 @@ const CreateTask = ({ modal, toggle, save }) => {
         <Button color="secondary" onClick={toggle}>
           Cancel
         </Button>
-        <Button color="primary" onClick={handleSave}>
-          Add
-        </Button>{" "}
+        <Button color="primary" onClick={handleUpdate}>
+          Update
+        </Button>
       </ModalFooter>
     </Modal>
   );
 };
 
-export default CreateTask;
+export default EditTask;

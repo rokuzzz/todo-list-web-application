@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import EditTask from "../modals/EditTask";
 
-const Card = ({ taskObj, index, deleteTask }) => {
+const Card = ({ taskObj, index, deleteTask, updateListArray }) => {
+  const [modal, setModal] = useState(false);
+
   const colors = [
     {
       primaryColor: "#5D93E1",
@@ -24,6 +27,14 @@ const Card = ({ taskObj, index, deleteTask }) => {
       secondaryColor: "#F3F0FD",
     },
   ];
+
+  const toggle = () => {
+    setModal(!modal);
+  };
+
+  const updateTask = (obj) => {
+    updateListArray(obj, index);
+  };
 
   const handleDelete = () => {
     deleteTask(index);
@@ -56,6 +67,7 @@ const Card = ({ taskObj, index, deleteTask }) => {
               "color": colors[index % 5].primaryColor,
               "cursor": "pointer",
             }}
+            onClick={() => setModal(true)}
           ></i>
           <i
             class="fas fa-trash-alt"
@@ -67,6 +79,12 @@ const Card = ({ taskObj, index, deleteTask }) => {
           ></i>
         </div>
       </div>
+      <EditTask
+        modal={modal}
+        toggle={toggle}
+        updateTask={updateTask}
+        taskObj={taskObj}
+      />
     </div>
   );
 };
