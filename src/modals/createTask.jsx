@@ -1,18 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-const createTask = ({ modal, toggle }) => {
+const CreateTask = ({ modal, toggle }) => {
+  const [taskName, taskSetName] = useState("");
+  const [deadline, setDeadline] = useState("");
+
   return (
     <Modal isOpen={modal} toggle={toggle}>
       <ModalHeader toggle={toggle}>Add new todo</ModalHeader>
       <ModalBody>
         <form>
           <div className="form-group">
-            <input type="text"></input>
+            <label>Title</label>
+            <input
+              type="text"
+              className="form-control"
+              value={taskName}
+            ></input>
           </div>
           <div className="form-group">
-            <input type="text"></input>
+            <label>Deadline</label>
+            <input
+              type="text"
+              className="form-control"
+              value={deadline}
+            ></input>
           </div>
+          <label>Status</label>
+          <select class="form-select" size="1">
+            <option value="1">In progress</option>
+            <option value="2">Not started</option>
+            <option value="3">Done</option>
+          </select>
         </form>
       </ModalBody>
       <ModalFooter>
@@ -27,4 +46,4 @@ const createTask = ({ modal, toggle }) => {
   );
 };
 
-export default createTask;
+export default CreateTask;
