@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const CreateTask = ({ modal, toggle, save }) => {
   const [taskName, setTaskName] = useState("");
   const [deadline, setDeadline] = useState("Deadline: ");
+
+  const [status, setStatus] = useState("");
+  const handleStatusChange = (e) => {
+    setStatus(e.target.value);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,6 +25,7 @@ const CreateTask = ({ modal, toggle, save }) => {
     let taskObj = {};
     taskObj["Name"] = taskName;
     taskObj["Deadline"] = deadline;
+    taskObj["Status"] = status;
     save(taskObj);
   };
 
@@ -46,10 +52,16 @@ const CreateTask = ({ modal, toggle, save }) => {
           />
         </div>
         <div id="form-element">
-          <select class="form-select" size="1">
-            <option value="1">In progress</option>
-            <option value="2">Not started</option>
-            <option value="3">Done</option>
+          <select
+            class="form-select"
+            size="1"
+            value={status}
+            onChange={handleStatusChange}
+            name="status"
+          >
+            <option value="In progress">In progress</option>
+            <option value="Not started">Not started</option>
+            <option value="Done">Done</option>
           </select>
         </div>
       </ModalBody>
